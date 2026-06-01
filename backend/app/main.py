@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.core.config import settings
-from app.api.v1 import health, analyze, chat
+from app.api.v1 import health, analyze, chat, retrieve
 
 app = FastAPI(
     title=settings.PROJECT_NAME,
@@ -22,6 +22,7 @@ if settings.BACKEND_CORS_ORIGINS:
 app.include_router(health.router, prefix=settings.API_V1_STR, tags=["Health"])
 app.include_router(analyze.router, prefix=settings.API_V1_STR, tags=["Analyze"])
 app.include_router(chat.router, prefix=settings.API_V1_STR, tags=["Chat"])
+app.include_router(retrieve.router, prefix=settings.API_V1_STR, tags=["Retrieval"])
 
 @app.get("/")
 def root():
